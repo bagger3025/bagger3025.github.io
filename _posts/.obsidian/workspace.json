@@ -1,0 +1,164 @@
+{
+  "main": {
+    "id": "9506d0c541af662c",
+    "type": "split",
+    "children": [
+      {
+        "id": "40a99571af1e0022",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "9008992f2b9991fa",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "2023-12-02-welcome-to-jekyll.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "d85e8979a531465e",
+    "type": "split",
+    "children": [
+      {
+        "id": "8f47ab4095c7997e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "9ec6a79948e08b24",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "e94cb42f294922df",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "253aaaf2cebf9fcb",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "77d0551f4106f6ca",
+    "type": "split",
+    "children": [
+      {
+        "id": "62dc3cf5d9b28610",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "7b38cfd36b88a45a",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "2023-12-02-welcome-to-jekyll.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "db543f3e04dbff0c",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "2023-12-02-welcome-to-jekyll.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "8f17b83335c46b46",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "abdb9b1d07ef4234",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "2023-12-02-welcome-to-jekyll.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "9008992f2b9991fa",
+  "lastOpenFiles": [
+    "2023-12-30-testing-post.md",
+    "my_post/2023-12-30-testing-post2.md",
+    "2017-03-05-pagination-post.md",
+    "my_post",
+    "2017-03-29-introducing-tale.md",
+    "2021-04-30-managing-excerpt.md",
+    "2021-05-03-sticky-posts.md",
+    "2023-12-02-welcome-to-jekyll.md",
+    "2017-03-16-example-content.md",
+    "2017-03-10-welcome-to-jekyll.md",
+    "2017-03-07-the-case-of-the-missing-post.md",
+    "2017-03-06-the-mystery-of-the-filler-post.md"
+  ]
+}
