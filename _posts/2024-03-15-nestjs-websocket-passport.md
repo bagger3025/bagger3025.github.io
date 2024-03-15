@@ -17,11 +17,11 @@ edit_time: 2024-03-15T18:47:31+09:00
 socket.io의 공식 문서 [Mongodb Adaptor](https://socket.io/docs/v4/mongo-adapter/)과 Nestjs의 공식 문서 Websocket의 [Adaptor파트](https://docs.nestjs.com/websockets/adapter)를 보면서 구현해 놓은 것이 있었는데, 이것을 기반으로 추가와 수정만 하면 되었다.
 
 ```typescript
-  createIOServer(port: number, options?: ServerOptions): any {
-    const server = super.createIOServer(port, options);
-    server.adapter(this.adapterConstructor);
-    return server;
-  }
+createIOServer(port: number, options?: ServerOptions): any {
+	const server = super.createIOServer(port, options);
+	server.adapter(this.adapterConstructor);
+	return server;
+}
 ```
 
 위 코드는 공식 문서에 공유되어 있는 `createIOServer` 메서드이다. 위에서는 이렇게 만들어 서버를 반환하고 있는데, 반환하기 전 middleware를 추가하면 되었다.
@@ -33,16 +33,16 @@ socket.io의 공식 문서 [Mongodb Adaptor](https://socket.io/docs/v4/mongo-ada
 Stack overflow 게시글에는 다음과 같은 해결법이 제시되어 있었다.
 
 ```typescript
-    const wrap = (middleware) => (socket, next) =>
-      middleware(socket.request, {}, next);
-    
-    server.use((socket, next) => {
-      socket.data.username = 'test'; //passing random property to see if use method is working
-      next();
-    });
-    server.use(wrap(this.session));
-    server.use(wrap(passport.initialize()));
-    server.use(wrap(passport.session()));
+const wrap = (middleware) => (socket, next) =>
+	middleware(socket.request, {}, next);
+
+server.use((socket, next) => {
+	socket.data.username = 'test'; //passing random property to see if use method is working
+	next();
+});
+server.use(wrap(this.session));
+server.use(wrap(passport.initialize()));
+server.use(wrap(passport.session()));
 ```
 
 `wrap`이라는 함수를 반환하는 함수를 정의해 `wrap(middleware)`형식으로 부르면 `server.use()`함수에 전달할 함수를 반환할 수 있게 만든 것이다. 하지만 Typescript를 사용하고 있었기에 이 방법은 통하지 않았다. `middleware`에 `{}`를 전달하는 부분에서 변환할 수 없다고 에러가 나왔다.
@@ -50,9 +50,9 @@ Stack overflow 게시글에는 다음과 같은 해결법이 제시되어 있었
 SocketIO에서 middleware를 사용할 수 있는 방법을 검색했더니 바로 SocketIO 공식문서가 나왔다. [Compatibility with Express Middlewares](https://socket.io/docs/v4/middlewares/#compatibility-with-express-middleware)는 찾던 바로 그것이었다. 이것과 Stack Overflow의 첫 번째 답변을 바탕으로 코드를 다음과 같이 수정했다.
 
 ```typescript
-    server.engine.use(this.session);
-    server.engine.use(passport.initialize());
-    server.engine.use(passport.session());
+server.engine.use(this.session);
+server.engine.use(passport.initialize());
+server.engine.use(passport.session());
 ```
 
 `this.session`은 생성자에서 받아오는데, 원래 작성한 코드를 다음과 같이 변형하였다.
@@ -63,10 +63,10 @@ SocketIO에서 middleware를 사용할 수 있는 방법을 검색했더니 바�
 const FileStore = _FileStore(session);
 
 const passportSession = session({
-secret: process.env.SESSION_SECRET || 'development',
-resave: false,
-saveUninitialized: false,
-store: new FileStore(),
+	secret: process.env.SESSION_SECRET as string,
+	resave: false,
+	saveUninitialized: false,
+	store: new FileStore(),
 });
 
 const mongoIoAdapter = new MongoIoAdapter(app, passportSession);
@@ -75,10 +75,14 @@ const mongoIoAdapter = new MongoIoAdapter(app, passportSession);
 `mongo.adaptor.ts`
 
 ```typescript
-  constructor(app: INestApplication, session: RequestHandler) {
-    super(app);
-    this.session = session;
-  }
+constructor(app: INestApplication, session: RequestHandler) {
+	super(app);
+	this.session = session;
+}
 ```
 
 Http Request의 세션과 passportjs의 인증까지 다 연동되었다.
+
+# 새로 알게 된 점
+
+Passport.js를 추가했지만 왜 되지 않는가에 대한 대답이 Http Request에서만 추가하고 Websocket에 대해서는 추가하지 않았기 때문이었다. 그만큼 어떻게 Middleware가 돌아가는지에 대해 잘 알지 못했다. Middleware를 추가하는 과정에서 이 과정을 조금 더 잘 알게 된 것 같다.
